@@ -1,0 +1,188 @@
+\documentclass[$if(fontsize)$$fontsize$,$endif$$if(lang)$$babel-lang$,$endif$$if(papersize)$$papersize$paper,$endif$$for(classoption)$$classoption$$sep$,$endfor$]{$documentclass$}
+
+\usepackage[a4paper, hmargin={50mm, 50mm}, vmargin={40mm, 30mm}]{geometry}
+
+\usepackage{fontspec}
+\defaultfontfeatures{Mapping=tex-text,Ligatures=TeX,Scale=MatchLowercase}
+\setmainfont{Catamaran}
+\setsansfont{Catamaran}
+\setmonofont[Scale=0.75,WordSpace=0.5]{Courier}
+\newfontfamily\headingfont[]{Oswald}
+
+\usepackage{polyglossia}
+\setmainlanguage{english}
+
+\usepackage{xcolor}
+
+\frenchspacing
+\setlength{\emergencystretch}{3em}
+\usepackage[$for(microtypeoptions)$$microtypeoptions$$sep$,$endfor$]{microtype}
+\setlength{\parindent}{1em}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\setlength{\headheight}{20pt}
+\rhead{\def\svgwidth{40pt}\input{img/serokell.pdf_tex}}
+\fancypagestyle{firstpage}{%
+   \lhead{\headingfont \Date}
+}
+
+\makeatletter
+\def\@maketitle{%
+  \hrule height \z@  % to avoid the insertion of lineskip glue
+  \noindent{\Huge\headingfont \@title \par}%
+  \vskip 2em
+  \aftergroup\@afterindentfalse
+  \aftergroup\@afterheading
+}
+\makeatother
+
+\usepackage[medium]{titlesec}
+\titleformat{\section}{\LARGE\headingfont}{}{0pt}{}
+\titleformat{\subsection}{\Large\headingfont\color{darkgray}}{}{0pt}{}
+
+\usepackage{titletoc}
+\titlecontents{section}[0em]{\vspace{2pt}}{\bfseries}{\bfseries}{}
+\titlecontents{subsection}[2em]{}{}{}{\titlerule*[5pt]{.}\contentspage\nobreak}
+
+\usepackage{enumitem}
+\setlist[itemize]{%
+  labelsep=0.8em,
+  label=\raisebox{0.25ex}{\tiny$$\bullet$$},
+  leftmargin=-\itemindent
+}
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+
+\usepackage[unicode=true]{hyperref}
+\usepackage[all]{hypcap}
+\hypersetup{
+$if(title-meta)$
+            pdftitle={$title-meta$},
+$endif$
+$if(author-meta)$
+            pdfauthor={$author-meta$},
+$endif$
+$if(keywords)$
+            pdfkeywords={$for(keywords)$$keywords$$sep$, $endfor$},
+$endif$
+            pdfborder={0 0 0},
+            pdfstartview={FitV}
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+
+
+\usepackage{graphicx}
+\graphicspath{{images/}}
+\DeclareGraphicsExtensions{.eps,.pdf,.png,.jpg}
+
+\usepackage{mathtools, amssymb, xfrac}
+
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+\DeclarePairedDelimiter{\floor}{\lfloor}{\rfloor}
+
+$if(natbib)$
+\usepackage{natbib}
+\bibliographystyle{$if(biblio-style)$$biblio-style$$else$plainnat$endif$}
+$endif$
+$if(biblatex)$
+\usepackage[$if(biblio-style)$style=$biblio-style$,$endif$$for(biblatexoptions)$$biblatexoptions$$sep$,$endfor$]{biblatex}
+$for(bibliography)$
+\addbibresource{$bibliography$}
+$endfor$
+$endif$
+
+$if(listings)$
+\usepackage{listings}
+$endif$
+
+\usepackage{longtable,booktabs}
+\usepackage{footnote}  % fix footnotes in tables
+\makesavenoteenv{long table}
+
+$if(links-as-notes)$
+% Make links footnotes instead of hotlinks:
+\renewcommand{\href}[2]{#2\footnote{\url{#1}}}
+$endif$
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+$for(header-includes)$
+$header-includes$
+$endfor$
+
+\makeatletter
+$if(title)$
+\title{$title$$if(thanks)$\thanks{$thanks$}$endif$}
+$endif$
+$if(subtitle)$
+\providecommand{\subtitle}[1]{}
+\subtitle{$subtitle$}
+$endif$
+$if(author)$
+\author{$for(author)$$author$$sep$ \and $endfor$}
+$endif$
+$if(institute)$
+\providecommand{\institute}[1]{}
+\institute{$for(institute)$$institute$$sep$ \and $endfor$}
+$endif$
+\date{$date$} \let\Date\@date
+\makeatother
+
+\begin{document}
+$if(title)$
+\maketitle
+\thispagestyle{firstpage}
+$endif$
+
+$if(abstract)$
+$abstract$
+$endif$
+
+$for(include-before)$
+$include-before$
+
+$endfor$
+$if(toc)$
+{
+\setcounter{tocdepth}{$toc-depth$}
+\tableofcontents
+\vspace{3em}
+}
+$endif$
+$if(lot)$
+\listoftables
+$endif$
+$if(lof)$
+\listoffigures
+$endif$
+$body$
+
+$if(natbib)$
+$if(bibliography)$
+$if(biblio-title)$
+$if(book-class)$
+\renewcommand\bibname{$biblio-title$}
+$else$
+\renewcommand\refname{$biblio-title$}
+$endif$
+$endif$
+\bibliography{$for(bibliography)$$bibliography$$sep$,$endfor$}
+
+$endif$
+$endif$
+$if(biblatex)$
+\printbibliography$if(biblio-title)$[title=$biblio-title$]$endif$
+
+$endif$
+$for(include-after)$
+$include-after$
+
+$endfor$
+\end{document}
