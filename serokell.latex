@@ -42,10 +42,12 @@
 \usepackage[medium]{titlesec}
 \titleformat{\section}{\LARGE\headingfont}{}{0pt}{}
 \titleformat{\subsection}{\Large\headingfont\color{darkgray}}{}{0pt}{}
+\titleformat{\subsubsection}{\normalsize\bfseries}{}{0pt}{}
 
 \usepackage{titletoc}
-\titlecontents{section}[0em]{\vspace{2pt}}{\bfseries}{\bfseries}{}
+\titlecontents{section}[0em]{\vspace{2pt}}{\bfseries}{\bfseries}{\titlerule*[5pt]{.}\contentspage\nobreak}
 \titlecontents{subsection}[2em]{}{}{}{\titlerule*[5pt]{.}\contentspage\nobreak}
+\titlecontents{subsubsection}[3em]{}{}{}{\titlerule*[5pt]{.}\contentspage\nobreak}
 
 \usepackage{enumitem}
 \setlist[itemize]{%
