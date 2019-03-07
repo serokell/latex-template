@@ -74,10 +74,15 @@ $endif$
             breaklinks=true}
 \urlstyle{same}  % don't use monospace font for urls
 
-
 \usepackage{graphicx}
+\usepackage{caption}
 \graphicspath{{images/}}
 \DeclareGraphicsExtensions{.eps,.pdf,.png,.jpg}
+\captionsetup[figure]{labelformat=empty}
+\let\Oldincludegraphics\includegraphics
+\renewcommand{\includegraphics}[2][width=\textwidth]{%
+  \Oldincludegraphics[#1]{#2}%
+}
 
 \usepackage{mathtools, amssymb, xfrac}
 
