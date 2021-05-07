@@ -24,6 +24,11 @@
 \addtokomafont{disposition}{\headingfont}
 
 
+\usepackage{scrlayer-scrpage}
+\ohead{\def\svgwidth{40pt}\input{img/serokell.pdf_tex}}
+\renewcommand*{\chapterpagestyle}{scrheadings}
+
+
 \usepackage[hyphens]{url}
 
 \usepackage{xcolor}
