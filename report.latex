@@ -8,9 +8,12 @@
 
 \usepackage{microtype}
 
-\usepackage{babel}
+\usepackage[english]{babel}
 \frenchspacing
-\usepackage[iso]{isodate}
+\usepackage{datetime2}
+% This uses ISO 8601 date format by default. If you want textual format, add
+%   header-includes: \DTMsetregional
+% to the metadata block of your document.
 
 
 \usepackage{amsmath}
@@ -111,6 +114,9 @@ $endif$
 \usepackage{footnote}  % fix footnotes in tables
 \makesavenoteenv{long table}
 
+$for(header-includes)$
+$header-includes$
+$endfor$
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
