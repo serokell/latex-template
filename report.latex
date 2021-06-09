@@ -63,8 +63,10 @@ $endif$
 $if(links-as-notes)$
 % Make links footnotes instead of hotlinks:
 \renewcommand{\href}[2]{#2\footnote{\url{#1}}}
+% Show internal links as footnotes too.
+\usepackage{nameref}
+\renewcommand{\hyperlink}[2]{#2\footnote{See \headingfont{\nameref{#1}}}}
 $endif$
-
 
 %%%
 
