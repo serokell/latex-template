@@ -20,7 +20,9 @@
 \usepackage{mathtools}
 \usepackage{mathspec}
 \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
-\setmainfont{Catamaran}
+\setmainfont[
+ ItalicFont={Catamaran Thin}%
+]{Catamaran}
 \setsansfont{Catamaran}
 \setmonofont[Scale=0.75,WordSpace=0.5]{Courier Prime}
 \newfontfamily\headingfont[]{Oswald}
