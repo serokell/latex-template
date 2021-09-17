@@ -29,8 +29,10 @@
 \addtokomafont{disposition}{\headingfont}
 
 
+\usepackage{catchfile}
+\CatchFileDef{\srklogo}{img/serokell.pdf_tex}{}
 \usepackage{scrlayer-scrpage}
-\ohead{\def\svgwidth{40pt}\input{img/serokell.pdf_tex}}
+\ohead{\def\svgwidth{40pt}\srklogo}
 \renewcommand*{\chapterpagestyle}{scrheadings}
 
 
