@@ -1,0 +1,211 @@
+\documentclass[%
+  english,%
+  paper=a4,%
+  DIV=11,%
+  fromalign=location%
+]{scrlttr2}
+
+\usepackage{microtype}
+
+\usepackage[english]{babel}
+\frenchspacing
+\usepackage{datetime2}
+% This uses ISO 8601 date format by default. If you want textual format, add
+%   header-includes: \DTMsetregional
+% to the metadata block of your document.
+
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{mathspec}
+\defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\setmainfont[
+ ItalicFont={Catamaran Thin}%
+]{Catamaran}
+\setsansfont{Catamaran}
+\setmonofont[Scale=0.75,WordSpace=0.5]{Courier Prime}
+\newfontfamily\headingfont[]{Oswald}
+%!\addtokomafont{disposition}{\headingfont}
+
+
+\usepackage{catchfile}
+\CatchFileDef{\srklogo}{img/serokell.pdf_tex}{}
+\usepackage{scrlayer-scrpage}
+\chead{\def\svgwidth{40pt}\srklogo}
+$if(draft)$
+\ihead{$$\triangleright \mathbb{R} \forall \mathcal{F} \top$$}
+$endif$
+\RedeclarePageStyleAlias{empty}{scrheadings}
+%!\renewcommand*{\chapterpagestyle}{scrheadings}
+
+
+\usepackage[hyphens]{url}
+
+\usepackage{xcolor}
+\usepackage[unicode=true]{hyperref}
+$if(colorlinks)$
+\PassOptionsToPackage{usenames,dvipsnames}{color} % color is loaded by hyperref
+$endif$
+\hypersetup{
+$if(title-meta)$
+            pdftitle={$title-meta$},
+$endif$
+$if(author-meta)$
+            pdfauthor={$author-meta$},
+$endif$
+$if(keywords)$
+            pdfkeywords={$for(keywords)$$keywords$$sep$, $endfor$},
+$endif$
+$if(colorlinks)$
+            colorlinks=true,
+            linkcolor=$if(linkcolor)$$linkcolor$$else$Maroon$endif$,
+            citecolor=$if(citecolor)$$citecolor$$else$Blue$endif$,
+            urlcolor=$if(urlcolor)$$urlcolor$$else$Blue$endif$,
+$else$
+            pdfborder={0 0 0},
+$endif$
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+
+% Make links footnotes instead of hotlinks:
+\renewcommand{\href}[2]{#2\footnote{\url{#1}}}
+% Show internal links as footnotes too.
+\usepackage{nameref}
+\renewcommand{\hyperlink}[2]{#2\footnote{See \headingfont{\nameref{#1}}}}
+
+%%%
+
+% pandoc stuff
+\providecommand{\tightlist}{}
+
+% pandoc bibliography
+$if(natbib)$
+\usepackage[$natbiboptions$]{natbib}
+\bibliographystyle{$if(biblio-style)$$biblio-style$$else$plainnat$endif$}
+$endif$
+$if(biblatex)$
+\usepackage[$if(biblio-style)$style=$biblio-style$,$endif$$for(biblatexoptions)$$biblatexoptions$$sep$,$endfor$]{biblatex}
+$for(bibliography)$
+\addbibresource{$bibliography$}
+$endfor$
+$endif$
+$if(csl-refs)$
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+\newlength{\csllabelwidth}
+\setlength{\csllabelwidth}{3em}
+\newlength{\cslentryspacingunit} % times entry-spacing
+\setlength{\cslentryspacingunit}{\parskip}
+\newenvironment{CSLReferences}[2] % #1 hanging-ident, #2 entry spacing
+ {% don't indent paragraphs
+  \setlength{\parindent}{0pt}
+  % turn on hanging indent if param 1 is 1
+  \ifodd #1
+  \let\oldpar\par
+  \def\par{\hangindent=\cslhangindent\oldpar}
+  \fi
+  % set entry spacing
+  \setlength{\parskip}{#2\cslentryspacingunit}
+ }%
+ {}
+\usepackage{calc}
+\newcommand{\CSLBlock}[1]{#1\hfill\break}
+\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{#1}}
+\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{#1}\break}
+\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
+$endif$
+
+%%%
+
+\usepackage{graphicx}
+\usepackage{caption}
+\graphicspath{{images/}}
+\DeclareGraphicsExtensions{.eps,.pdf,.png,.jpg}
+\captionsetup[figure]{labelformat=empty}
+\let\Oldincludegraphics\includegraphics
+\renewcommand{\includegraphics}[2][width=\textwidth]{%
+  \Oldincludegraphics[#1]{#2}%
+}
+
+%%%
+
+\usepackage{ifxetex,ifluatex}
+
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+\DeclarePairedDelimiter{\floor}{\lfloor}{\rfloor}
+
+
+\usepackage{longtable,booktabs}
+\usepackage{footnote}  % fix footnotes in tables
+\makesavenoteenv{long table}
+
+$for(header-includes)$
+$header-includes$
+$endfor$
+
+$if(highlighting-macros)$
+$highlighting-macros$
+$endif$
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+$if(date)$
+\date{$date$}
+$endif$
+$if(draft)$
+\titlehead{$$\triangleright \mathbb{R} \forall \mathcal{F} \top$$}
+$endif$
+
+$if(from)$\setkomavar{fromname}{$from$}$endif$
+$if(fromaddress)$\setkomavar{fromaddress}{$fromaddress$}$endif$
+$if(fromemail)$\setkomavar{fromemail}{$fromemail$}$endif$
+$if(signature)$\setkomavar{signature}{$signature$}$endif$
+\let\raggedsignature\raggedright
+\KOMAoptions{
+  ,foldmarks=false
+  ,backaddress=false
+  ,fromemail=$if(fromemail)$true$else$false$endif$
+}
+
+\begin{document}
+
+\begin{letter}{$if(to)$$to$$endif$}
+
+$if(dear)$
+\opening{Dear $dear$:}
+$else$
+\opening{To whom it may concern:}
+$endif$
+
+$body$
+
+$if(closing)$
+\closing{$closing$}
+$endif$
+
+\end{letter}
+
+$if(natbib)$
+$if(bibliography)$
+$if(biblio-title)$
+$if(book-class)$
+\renewcommand\bibname{$biblio-title$}
+$else$
+\renewcommand\refname{$biblio-title$}
+$endif$
+$endif$
+\bibliography{$for(bibliography)$$bibliography$$sep$,$endfor$}
+
+$endif$
+$endif$
+$if(biblatex)$
+\printbibliography$if(biblio-title)$[title=$biblio-title$]$endif$
+
+$endif$
+$for(include-after)$
+$include-after$
+
+$endfor$
+\end{document}
