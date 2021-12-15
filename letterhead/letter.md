@@ -7,9 +7,17 @@ For the receiver, everything goes into the same variable.
 Somewhat weird, but this is how this class works.
 
 By the way, all the variables are optional (but recommended).
+
+Other useful variables to set:
+
+  * title: a big title in the center of the page; not sure why you would want it.
+    (Note: pdftitle is just like title, but only has effect on the metadata
+    and does not actually print anything on the page.)
+  * subject: you know, like in an email; looks weird in 2021, but possible.
 -->
 
 ---
+pdftitle: A sample letter
 from: John Doe
 fromaddress: |
   | 1120 Grand Ave

@@ -26,7 +26,8 @@
 \setsansfont{Catamaran}
 \setmonofont[Scale=0.75,WordSpace=0.5]{Courier Prime}
 \newfontfamily\headingfont[]{Oswald}
-%!\addtokomafont{disposition}{\headingfont}
+\setkomafont{title}{\headingfont}
+\setkomafont{subject}{\headingfont}
 
 
 \usepackage{catchfile}
@@ -48,24 +49,20 @@ $if(colorlinks)$
 \PassOptionsToPackage{usenames,dvipsnames}{color} % color is loaded by hyperref
 $endif$
 \hypersetup{
-$if(title-meta)$
-            pdftitle={$title-meta$},
-$endif$
-$if(author-meta)$
-            pdfauthor={$author-meta$},
-$endif$
-$if(keywords)$
-            pdfkeywords={$for(keywords)$$keywords$$sep$, $endfor$},
-$endif$
+$if(from)$,pdfauthor={$from$}$else$%$endif$
+$if(pdftitle)$,pdftitle={$pdftitle$}$else$$if(title)$,pdftitle={$title$}$else$%$endif$$endif$
+$if(subject)$,pdfsubject={$subject$}$else$%$endif$
+$if(keywords)$,pdfkeywords={$for(keywords)$$keywords$$sep$, $endfor$}$else$%$endif$
 $if(colorlinks)$
-            colorlinks=true,
-            linkcolor=$if(linkcolor)$$linkcolor$$else$Maroon$endif$,
-            citecolor=$if(citecolor)$$citecolor$$else$Blue$endif$,
-            urlcolor=$if(urlcolor)$$urlcolor$$else$Blue$endif$,
+            ,colorlinks=true
+            ,linkcolor=$if(linkcolor)$$linkcolor$$else$Maroon$endif$
+            ,citecolor=$if(citecolor)$$citecolor$$else$Blue$endif$
+            ,urlcolor=$if(urlcolor)$$urlcolor$$else$Blue$endif$
 $else$
-            pdfborder={0 0 0},
+            ,pdfborder={0 0 0},
 $endif$
-            breaklinks=true}
+            ,breaklinks=true
+}
 \urlstyle{same}  % don't use monospace font for urls
 
 % Make links footnotes instead of hotlinks:
@@ -161,6 +158,8 @@ $endif$
 $if(from)$\setkomavar{fromname}{$from$}$endif$
 $if(fromaddress)$\setkomavar{fromaddress}{$fromaddress$}$endif$
 $if(fromemail)$\setkomavar{fromemail}{$fromemail$}$endif$
+$if(title)$\setkomavar{title}{$title$}$endif$
+$if(subject)$\setkomavar{subject}{$subject$}$endif$
 $if(signature)$\setkomavar{signature}{$signature$}$endif$
 \let\raggedsignature\raggedright
 \KOMAoptions{
